@@ -1,9 +1,18 @@
+<!-- Declares the HTML document type -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Character encoding set to UTF-8 -->
     <meta charset="UTF-8">
+
+    <!-- Page title shown in the browser tab -->
     <title>Prediction Results</title>
+
+    <!-- Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Inline styles for padding and table formatting -->
     <style>
         body {
             padding: 30px;
@@ -14,25 +23,31 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
+        <!-- Page heading -->
         <h2 class="mb-4">Prediction Results</h2>
 
+        <!-- Drift detection message if available -->
         {% if drift_message %}
             <div class="alert alert-danger" style="font-weight: bold; font-size: 18px;">
                 {{ drift_message }}
             </div>
         {% endif %}
 
+        <!-- Render prediction tables if present -->
         {% if tables %}
             {% for table in tables %}
                 {{ table|safe }}
             {% endfor %}
         {% else %}
+            <!-- Warning message if no predictions are available -->
             <div class="alert alert-warning">No predictions were generated.</div>
         {% endif %}
 
-        <a href="{{ url_for('predict') }}" class="btn btn-secondary mt-4">🔁 Upload Another File</a>
+        <!-- Button to return to the file upload page -->
+        <a href="{{ url_for('predict') }}" class="btn btn-secondary mt-4">Upload Another File</a>
     </div>
 </body>
 </html>

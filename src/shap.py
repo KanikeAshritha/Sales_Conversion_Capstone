@@ -5,52 +5,55 @@ import os
 import pandas as pd
 
 def explain_model_with_shap(X_raw):
-    print("🔎 Running SHAP explainability...")
+    # Displays message to indicate that SHAP explainability is running
+    print("Running SHAP explainability...")
 
-    # Load model pipeline
+    # Defines the path to the saved model file
     model_path = os.path.join("models", "model.pkl")
+
+    # Checks whether the model file exists
     if not os.path.exists(model_path):
-        print("❌ model.pkl not found.")
+        print("model.pkl not found.")
         return
 
+    # Loads the trained pipeline which contains preprocessing and model steps
     pipeline = joblib.load(model_path)
     preprocessor = pipeline.named_steps["preprocessing"]
     model = pipeline.named_steps["model"]
 
-    # Use the same preprocessing logic to transform and align
+    # Preprocesses the input data using the same logic used during model training
     from src.preprocessing import preprocess_data
-    X_processed_df, _ = preprocess_data(X_raw, training=False)  # returns DataFrame
+    X_processed_df, _ = preprocess_data(X_raw, training=False)
 
-    # SHAP expects a DataFrame with named columns
-    explainer = shap.Explainer(model.predict, X_processed_df)  # Use .predict instead of model directly
+    # Creates a SHAP explainer using the model's predict function and the preprocessed data
+    explainer = shap.Explainer(model.predict, X_processed_df)
     shap_values = explainer(X_processed_df)
 
+    # Creates the directory to store SHAP plots if it does not exist
     os.makedirs("artifacts/shap", exist_ok=True)
 
-    # 🔍 SHAP Summary Bar Plot
+    # Generates and saves SHAP bar plot that shows average importance of each feature
     shap.plots.bar(shap_values, show=False)
     plt.savefig("artifacts/shap/shap_summary_bar.png")
     plt.clf()
 
-    # 🔍 SHAP Beeswarm Plot
+    # Generates and saves SHAP beeswarm plot that shows feature effects for all samples
     shap.plots.beeswarm(shap_values, show=False)
     plt.savefig("artifacts/shap/shap_beeswarm.png")
     plt.clf()
 
-    # 🔍 SHAP Waterfall (first sample)
+    # Generates and saves SHAP waterfall plot that shows contribution of features for one sample
     shap.plots.waterfall(shap_values[0], show=False)
     plt.savefig("artifacts/shap/shap_waterfall_sample0.png")
     plt.clf()
 
-    # Display feature name mapping if needed
+    # Calculates and displays top 5 features based on mean absolute SHAP values
     print("Top SHAP Features:")
-    import pandas as pd
     import numpy as np
-
     mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
     feature_names = shap_values.feature_names
     importance_df = pd.Series(mean_abs_shap, index=feature_names).sort_values(ascending=False)
-
     print(importance_df.head(5))
 
-    print("✅ SHAP plots saved in artifacts/shap/")
+    # Displays confirmation that plots have been saved
+    print("SHAP plots saved in artifacts/shap/")

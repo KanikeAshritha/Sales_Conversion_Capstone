@@ -1,130 +1,76 @@
-# services:
-#   airflow-init:
-#     build: .
-#     container_name: airflow-init
-#     entrypoint: >
-#       /bin/bash -c "
-#       airflow db init &&
-#       airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com
-#       "
-#     environment:
-#       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
-#       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
-#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
-#       AIRFLOW__WEBSERVER__WEB_SERVER_PORT: 8080
-#       PYTHONPATH: /opt/airflow
-#     volumes:
-#       - ./airflow:/opt/airflow
-#       - ./src:/opt/airflow/src
-#       - ./airflow/dags:/opt/airflow/dags
-#       - ./airflow/data:/opt/airflow/data
-#       - ./airflow/artifacts:/opt/airflow/artifacts
-#       - airflow_db:/opt/airflow
-
-#   airflow-webserver:
-#     build: .
-#     container_name: airflow-webserver
-#     restart: always
-#     depends_on:
-#       - airflow-init
-#     environment:
-#       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
-#       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
-#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
-#       AIRFLOW__WEBSERVER__WEB_SERVER_PORT: 8080
-#       PYTHONPATH: /opt/airflow
-#     ports:
-#       - "8080:8080"
-#     command: airflow webserver
-#     volumes:
-#       - ./airflow:/opt/airflow
-#       - ./src:/opt/airflow/src
-#       - ./airflow/dags:/opt/airflow/dags
-#       - ./airflow/data:/opt/airflow/data
-#       - ./airflow/artifacts:/opt/airflow/artifacts
-#       - airflow_db:/opt/airflow
-
-#   airflow-scheduler:
-#     build: .
-#     container_name: airflow-scheduler
-#     restart: always
-#     depends_on:
-#       - airflow-init
-#     environment:
-#       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
-#       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
-#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
-#       PYTHONPATH: /opt/airflow
-#     command: airflow scheduler
-#     volumes:
-#       - ./airflow:/opt/airflow
-#       - ./src:/opt/airflow/src
-#       - ./airflow/dags:/opt/airflow/dags
-#       - ./airflow/data:/opt/airflow/data
-#       - ./airflow/artifacts:/opt/airflow/artifacts
-#       - airflow_db:/opt/airflow
-
-# volumes:
-#   airflow_db:
+# Define services used for running Airflow
 
 services:
+  # Initializes the Airflow environment
   airflow-init:
     build: .
     container_name: airflow-init
+    # Runs database initialization and creates default admin user
     entrypoint: >
       /bin/bash -c "
       airflow db init &&
       airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com
       "
     environment:
+      # Uses SequentialExecutor for local execution
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      # Secret key used to encrypt sensitive data
       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
+      # Connection string to the SQLite database
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+      # Adds custom Python module path
       PYTHONPATH: /opt/airflow:/opt/airflow/src
     volumes:
+      # Mounts the local airflow folder inside the container
       - ./airflow:/opt/airflow
+      # Mounts the source code folder inside the container
       - ./src:/opt/airflow/src
+      # Mounts the data folder inside the container
       - ./data:/opt/airflow/data
 
-
+  # Starts the Airflow web UI
   airflow-webserver:
     build: .
     container_name: airflow-webserver
     restart: always
     depends_on:
+      # Starts only after airflow-init finishes
       - airflow-init
     environment:
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
       PYTHONPATH: /opt/airflow:/opt/airflow/src
-
+    # Maps port 8080 on host to port 8080 in container
     ports:
       - "8080:8080"
+    # Command to start the webserver
     command: airflow webserver
     volumes:
       - ./airflow:/opt/airflow
       - ./src:/opt/airflow/src
       - ./data:/opt/airflow/data
 
-
+  # Starts the Airflow scheduler
   airflow-scheduler:
     build: .
     container_name: airflow-scheduler
     restart: always
     depends_on:
+      # Starts only after airflow-init finishes
       - airflow-init
     environment:
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
       PYTHONPATH: /opt/airflow:/opt/airflow/src
+    # Command to start the scheduler
     command: airflow scheduler
     volumes:
       - ./airflow:/opt/airflow
       - ./src:/opt/airflow/src
       - ./data:/opt/airflow/data
 
-
+# Declares Docker-managed volume for airflow if needed in future
 volumes:
   airflow_db:

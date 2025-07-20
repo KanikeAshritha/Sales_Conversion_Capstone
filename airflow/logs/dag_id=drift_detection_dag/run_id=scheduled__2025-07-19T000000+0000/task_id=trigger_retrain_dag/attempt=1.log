@@ -1,0 +1,12 @@
+[2025-07-20T05:28:51.005+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: drift_detection_dag.trigger_retrain_dag scheduled__2025-07-19T00:00:00+00:00 [queued]>
+[2025-07-20T05:28:51.030+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: drift_detection_dag.trigger_retrain_dag scheduled__2025-07-19T00:00:00+00:00 [queued]>
+[2025-07-20T05:28:51.031+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2025-07-20T05:28:51.078+0000] {taskinstance.py:2191} INFO - Executing <Task(TriggerDagRunOperator): trigger_retrain_dag> on 2025-07-19 00:00:00+00:00
+[2025-07-20T05:28:51.090+0000] {standard_task_runner.py:60} INFO - Started process 52 to run task
+[2025-07-20T05:28:51.096+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'drift_detection_dag', 'trigger_retrain_dag', 'scheduled__2025-07-19T00:00:00+00:00', '--job-id', '45', '--raw', '--subdir', 'DAGS_FOLDER/drift_detection_dag.py', '--cfg-path', '/tmp/tmpgi7anebs']
+[2025-07-20T05:28:51.099+0000] {standard_task_runner.py:88} INFO - Job 45: Subtask trigger_retrain_dag
+[2025-07-20T05:28:51.241+0000] {task_command.py:423} INFO - Running <TaskInstance: drift_detection_dag.trigger_retrain_dag scheduled__2025-07-19T00:00:00+00:00 [running]> on host b9e8b1b5977e
+[2025-07-20T05:28:51.515+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='drift_detection_dag' AIRFLOW_CTX_TASK_ID='trigger_retrain_dag' AIRFLOW_CTX_EXECUTION_DATE='2025-07-19T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-07-19T00:00:00+00:00'
+[2025-07-20T05:28:51.734+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=drift_detection_dag, task_id=trigger_retrain_dag, execution_date=20250719T000000, start_date=20250720T052851, end_date=20250720T052851
+[2025-07-20T05:28:51.832+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-07-20T05:28:51.875+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,17 +1,21 @@
+# Import required libraries
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import zscore
 
+# Load the dataset
 df = pd.read_csv('Lead Scoring.csv')
 
+# Identifies numerical and categorical columns, excluding ID columns
 def get_column_types(df):
     num_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
     cat_cols = df.select_dtypes(include='object').columns.tolist()
     cat_cols = [col for col in cat_cols if col not in ['Prospect ID', 'Lead Number']]
     return num_cols, cat_cols
 
+# Displays the count and percentage of missing values in each column
 def missing_value_report(df):
     nulls = df.isnull().sum().to_frame(name='Missing Count')
     nulls['Missing %'] = (nulls['Missing Count'] / len(df)) * 100
@@ -19,34 +23,40 @@ def missing_value_report(df):
     print("Columns with missing values:")
     print(nulls)
 
+# Displays summary statistics (mean, median, std, etc.) for each numerical feature
 def univariate_numerical(df):
     num_cols, _ = get_column_types(df)
     for col in num_cols:
         print(f"\nSummary: {col}")
         print(df[col].describe().round(2))
 
+# Displays frequency distribution for each categorical feature
 def univariate_categorical(df):
     _, cat_cols = get_column_types(df)
     for col in cat_cols:
         print(f"\nValue Counts: {col}")
         print(df[col].value_counts(dropna=False).head(10))
 
+# Displays the average target conversion rate for each category in categorical columns
 def categorical_vs_target_rate(df, cat_cols, target='Converted'):
     for col in cat_cols:
         if df[col].nunique() <= 20:
             print(f"\nConversion Rate by {col}:")
             print(df.groupby(col)[target].mean().sort_values(ascending=False).round(2))
 
+# Displays grouped descriptive statistics of numerical columns with respect to the target variable
 def numerical_vs_target_stats(df, num_cols, target='Converted'):
     for col in num_cols:
         print(f"\nStatistics of {col} grouped by {target}:")
         print(df.groupby(target)[col].describe().round(2))
 
+# Displays the correlation matrix between numerical columns
 def correlation_matrix(df):
     num_cols, _ = get_column_types(df)
     print("Correlation Matrix:")
     print(df[num_cols].corr().round(2))
 
+# Plots the distribution curve for each numerical feature
 def plot_numerical_distribution(df, num_cols):
     for col in num_cols:
         plt.figure(figsize=(12, 6))
@@ -57,6 +67,7 @@ def plot_numerical_distribution(df, num_cols):
         plt.tight_layout()
         plt.show()
 
+# Plots the top 10 categories by frequency for each categorical feature
 def plot_categorical_distribution(df, cat_cols):
     for col in cat_cols:
         plt.figure(figsize=(14, 6))
@@ -67,6 +78,7 @@ def plot_categorical_distribution(df, cat_cols):
         plt.tight_layout()
         plt.show()
 
+# Plots the conversion rate for categories in low-cardinality categorical columns
 def plot_conversion_rate(df, cat_cols, target='Converted'):
     for col in cat_cols:
         if df[col].nunique() <= 20:
@@ -79,6 +91,7 @@ def plot_conversion_rate(df, cat_cols, target='Converted'):
             plt.tight_layout()
             plt.show()
 
+# Plots boxplots to compare numerical features against the target variable
 def plot_numerical_vs_target(df, num_cols, target='Converted'):
     for col in num_cols:
         plt.figure(figsize=(12, 6))
@@ -87,6 +100,7 @@ def plot_numerical_vs_target(df, num_cols, target='Converted'):
         plt.tight_layout()
         plt.show()
 
+# Plots the heatmap of correlation matrix for numerical features
 def plot_correlation_matrix(df, num_cols):
     corr = df[num_cols].corr()
     plt.figure(figsize=(14, 10))
@@ -95,6 +109,7 @@ def plot_correlation_matrix(df, num_cols):
     plt.tight_layout()
     plt.show()
 
+# Plots a heatmap showing locations of missing values across the dataset
 def plot_missing_heatmap(df):
     plt.figure(figsize=(14, 8))
     sns.heatmap(df.isnull(), cbar=False, cmap='YlGnBu')
@@ -102,6 +117,7 @@ def plot_missing_heatmap(df):
     plt.tight_layout()
     plt.show()
 
+# Identifies outliers in numerical columns using z-score method
 def detect_outliers(df, num_cols, threshold=3):
     outlier_report = {}
     for col in num_cols:
@@ -110,7 +126,7 @@ def detect_outliers(df, num_cols, threshold=3):
         outlier_report[col] = len(outliers)
     return outlier_report
 
-
+# Plots the class distribution of the target variable
 def plot_target_distribution(df, target='Converted'):
     plt.figure(figsize=(6, 4))
     sns.countplot(x=target, data=df, palette='pastel')
@@ -118,56 +134,11 @@ def plot_target_distribution(df, target='Converted'):
     plt.tight_layout()
     plt.show()
 
-
+# Identifies columns that contain placeholders such as "Select", "Unknown", or "Other"
 def check_placeholder_values(df, placeholder_list=['Select', 'Unknown', 'Other']):
-    _, cat_cols = get_column_types(df)
-    print("\nPlaceholder Counts:")
-    for col in cat_cols:
-        counts = df[col].isin(placeholder_list).sum()
-        if counts > 0:
-            print(f"{col}: {counts} placeholder values")
-
-def detect_rare_categories(df, cat_cols, threshold=0.01):
-    print("\nRare Category Report (less than 1% frequency):")
-    for col in cat_cols:
-        counts = df[col].value_counts(normalize=True)
-        rare = counts[counts < threshold]
-        if not rare.empty:
-            print(f"{col}:\n{rare.round(4)}\n")
-
-def missingness_vs_target(df, cat_cols, target='Converted'):
-    print("\nConversion Rate Based on Missingness:")
-    for col in cat_cols:
-        if df[col].isnull().sum() > 0:
-            df[f'{col}_missing'] = df[col].isnull().astype(int)
-            print(f"{col}:")
-            print(df.groupby(f'{col}_missing')[target].mean().round(2))
-
-
-num_cols, cat_cols = get_column_types(df)
-
-missing_value_report(df)
-plot_missing_heatmap(df)
-
-univariate_numerical(df)
-univariate_categorical(df)
-
-categorical_vs_target_rate(df, cat_cols)
-numerical_vs_target_stats(df, num_cols)
-correlation_matrix(df)
-
-plot_target_distribution(df)
-plot_numerical_distribution(df, num_cols)
-plot_categorical_distribution(df, cat_cols)
-plot_conversion_rate(df, cat_cols)
-plot_numerical_vs_target(df, num_cols)
-plot_correlation_matrix(df, num_cols)
-plot_top_correlated_pairplot(df, num_cols)
-
-outlier_counts = detect_outliers(df, num_cols)
-print("\nOutlier counts per numerical column:")
-print(outlier_counts)
-
-check_placeholder_values(df)
-detect_rare_categories(df, cat_cols)
-missingness_vs_target(df, cat_cols)
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            values = df[col].astype(str).unique()
+            for placeholder in placeholder_list:
+                if placeholder in values:
+                    print(f"'{placeholder}' found in column: {col}")

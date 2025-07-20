@@ -1,19 +1,37 @@
+<!-- Declares the HTML document type -->
 <!DOCTYPE html>
 <html>
+
 <head>
+    <!-- Page title shown in the browser tab -->
     <title>Upload CSV for Lead Conversion Prediction</title>
+
+    <!-- Includes Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
+<!-- Applies Bootstrap container and top margin -->
 <body class="container mt-5">
+
+    <!-- Page heading -->
     <h2 class="mb-4">Upload CSV for Lead Conversion Prediction</h2>
+
+    <!-- Error message shown if prediction fails -->
     {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
+
+    <!-- Form for uploading CSV and submitting it -->
     <form method="POST" enctype="multipart/form-data">
+        
+        <!-- File input for selecting a CSV file -->
         <div class="form-group">
             <input type="file" name="file" accept=".csv" class="form-control-file">
         </div>
+
+        <!-- Submit button to send the file -->
         <button type="submit" class="btn btn-primary">Predict</button>
     </form>
+
 </body>
 </html>

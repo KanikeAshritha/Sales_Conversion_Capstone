@@ -1,0 +1,4 @@
+2025-07-19 06:23:07.054770: ✅ Drift detected. Triggering retrain DAG.
+2025-07-19 06:23:37.410906: ❌ No drift detected.
+2025-07-19 06:55:17.669476: ❌ No drift detected.
+2025-07-19 06:55:54.915663: ✅ Drift detected. Triggering retrain DAG.

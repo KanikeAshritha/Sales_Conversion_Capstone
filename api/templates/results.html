@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 30px;
+        }
+        table {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Prediction Results</h2>
+
+        {% if drift_message %}
+            <div class="alert alert-danger" style="font-weight: bold; font-size: 18px;">
+                {{ drift_message }}
+            </div>
+        {% endif %}
+
+        {% if tables %}
+            {% for table in tables %}
+                {{ table|safe }}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning">No predictions were generated.</div>
+        {% endif %}
+
+        <a href="{{ url_for('predict') }}" class="btn btn-secondary mt-4">🔁 Upload Another File</a>
+    </div>
+</body>
+</html>

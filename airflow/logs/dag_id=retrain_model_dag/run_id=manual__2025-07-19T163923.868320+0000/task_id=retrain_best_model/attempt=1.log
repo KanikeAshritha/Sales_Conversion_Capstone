@@ -1,0 +1,83 @@
+[2025-07-19T16:39:31.139+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: retrain_model_dag.retrain_best_model manual__2025-07-19T16:39:23.868320+00:00 [queued]>
+[2025-07-19T16:39:31.158+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: retrain_model_dag.retrain_best_model manual__2025-07-19T16:39:23.868320+00:00 [queued]>
+[2025-07-19T16:39:31.159+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-07-19T16:39:31.352+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): retrain_best_model> on 2025-07-19 16:39:23.868320+00:00
+[2025-07-19T16:39:31.364+0000] {standard_task_runner.py:60} INFO - Started process 61 to run task
+[2025-07-19T16:39:31.371+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'retrain_model_dag', 'retrain_best_model', 'manual__2025-07-19T16:39:23.868320+00:00', '--job-id', '42', '--raw', '--subdir', 'DAGS_FOLDER/retrain_model_dag.py', '--cfg-path', '/tmp/tmpwyua09o4']
+[2025-07-19T16:39:31.378+0000] {standard_task_runner.py:88} INFO - Job 42: Subtask retrain_best_model
+[2025-07-19T16:39:31.525+0000] {task_command.py:423} INFO - Running <TaskInstance: retrain_model_dag.retrain_best_model manual__2025-07-19T16:39:23.868320+00:00 [running]> on host 2f6aabfa6811
+[2025-07-19T16:39:31.721+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='retrain_model_dag' AIRFLOW_CTX_TASK_ID='retrain_best_model' AIRFLOW_CTX_EXECUTION_DATE='2025-07-19T16:39:23.868320+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-19T16:39:23.868320+00:00'
+[2025-07-19T16:39:31.725+0000] {logging_mixin.py:188} INFO - 📦 Starting retraining process
+[2025-07-19T16:39:31.726+0000] {logging_mixin.py:188} INFO - 🗄️ Loading data...
+[2025-07-19T16:39:32.003+0000] {logging_mixin.py:188} INFO - ⚙️ Running full preprocessing...
+[2025-07-19T16:39:33.044+0000] {logging_mixin.py:188} INFO - ✂️ Splitting data...
+[2025-07-19T16:39:33.195+0000] {logging_mixin.py:188} INFO - 
+🧠 Training model: LogisticRegression
+[2025-07-19T16:39:35.083+0000] {logging_mixin.py:188} INFO - ✅ Accuracy:  0.8939
+[2025-07-19T16:39:35.084+0000] {logging_mixin.py:188} INFO - ✅ Precision: 0.8515
+[2025-07-19T16:39:35.084+0000] {logging_mixin.py:188} INFO - ✅ Recall:    0.8778
+[2025-07-19T16:39:35.085+0000] {logging_mixin.py:188} INFO - ✅ F1-score:  0.8645
+[2025-07-19T16:39:35.086+0000] {logging_mixin.py:188} INFO - ✅ AUC-ROC:   0.9501
+[2025-07-19T16:39:35.090+0000] {logging_mixin.py:188} INFO - 
+🧠 Training model: RandomForest
+[2025-07-19T16:39:36.475+0000] {logging_mixin.py:188} INFO - ✅ Accuracy:  0.8902
+[2025-07-19T16:39:36.476+0000] {logging_mixin.py:188} INFO - ✅ Precision: 0.8694
+[2025-07-19T16:39:36.477+0000] {logging_mixin.py:188} INFO - ✅ Recall:    0.8413
+[2025-07-19T16:39:36.477+0000] {logging_mixin.py:188} INFO - ✅ F1-score:  0.8551
+[2025-07-19T16:39:36.478+0000] {logging_mixin.py:188} INFO - ✅ AUC-ROC:   0.9512
+[2025-07-19T16:39:36.478+0000] {logging_mixin.py:188} INFO - 
+🧠 Training model: XGBoost
+[2025-07-19T16:39:41.653+0000] {logging_mixin.py:188} INFO - ✅ Accuracy:  0.8977
+[2025-07-19T16:39:41.654+0000] {logging_mixin.py:188} INFO - ✅ Precision: 0.8688
+[2025-07-19T16:39:41.654+0000] {logging_mixin.py:188} INFO - ✅ Recall:    0.8652
+[2025-07-19T16:39:41.655+0000] {logging_mixin.py:188} INFO - ✅ F1-score:  0.8670
+[2025-07-19T16:39:41.655+0000] {logging_mixin.py:188} INFO - ✅ AUC-ROC:   0.9555
+[2025-07-19T16:39:41.655+0000] {logging_mixin.py:188} INFO - 
+🧠 Training model: LightGBM
+[2025-07-19T16:39:41.909+0000] {logging_mixin.py:188} INFO - ✅ Accuracy:  0.8994
+[2025-07-19T16:39:41.910+0000] {logging_mixin.py:188} INFO - ✅ Precision: 0.8673
+[2025-07-19T16:39:41.914+0000] {logging_mixin.py:188} INFO - ✅ Recall:    0.8722
+[2025-07-19T16:39:41.915+0000] {logging_mixin.py:188} INFO - ✅ F1-score:  0.8697
+[2025-07-19T16:39:41.916+0000] {logging_mixin.py:188} INFO - ✅ AUC-ROC:   0.9586
+[2025-07-19T16:39:41.916+0000] {logging_mixin.py:188} INFO - 
+🧠 Training model: DecisionTree
+[2025-07-19T16:39:41.989+0000] {logging_mixin.py:188} INFO - ✅ Accuracy:  0.8685
+[2025-07-19T16:39:41.990+0000] {logging_mixin.py:188} INFO - ✅ Precision: 0.8403
+[2025-07-19T16:39:41.990+0000] {logging_mixin.py:188} INFO - ✅ Recall:    0.8132
+[2025-07-19T16:39:41.991+0000] {logging_mixin.py:188} INFO - ✅ F1-score:  0.8266
+[2025-07-19T16:39:41.991+0000] {logging_mixin.py:188} INFO - ✅ AUC-ROC:   0.8591
+[2025-07-19T16:39:42.146+0000] {logging_mixin.py:188} INFO - 🚀 Training 5 models...
+[2025-07-19T16:39:42.147+0000] {logging_mixin.py:188} INFO - 
+📊 Training LogisticRegression...
+[2025-07-19T16:39:42.491+0000] {logging_mixin.py:188} INFO - Fitting 3 folds for each of 3 candidates, totalling 9 fits
+[2025-07-19T16:40:00.744+0000] {logging_mixin.py:188} INFO - ✅ LogisticRegression — Acc: 0.8939, Prec: 0.8948, Recall: 0.8939, F1: 0.8942
+[2025-07-19T16:40:00.784+0000] {logging_mixin.py:188} INFO - 
+📊 Training RandomForest...
+[2025-07-19T16:40:00.958+0000] {logging_mixin.py:188} INFO - Fitting 3 folds for each of 4 candidates, totalling 12 fits
+[2025-07-19T16:40:11.801+0000] {logging_mixin.py:188} INFO - ✅ RandomForest — Acc: 0.8891, Prec: 0.8890, Recall: 0.8891, F1: 0.8891
+[2025-07-19T16:40:11.826+0000] {logging_mixin.py:188} INFO - 
+📊 Training XGBoost...
+[2025-07-19T16:40:11.939+0000] {logging_mixin.py:188} INFO - Fitting 3 folds for each of 4 candidates, totalling 12 fits
+[2025-07-19T16:40:21.217+0000] {logging_mixin.py:188} INFO - ✅ XGBoost — Acc: 0.8999, Prec: 0.9000, Recall: 0.8999, F1: 0.8999
+[2025-07-19T16:40:21.241+0000] {logging_mixin.py:188} INFO - 
+📊 Training LightGBM...
+[2025-07-19T16:40:21.376+0000] {logging_mixin.py:188} INFO - Fitting 3 folds for each of 4 candidates, totalling 12 fits
+[2025-07-19T16:42:27.596+0000] {logging_mixin.py:188} INFO - ✅ LightGBM — Acc: 0.8994, Prec: 0.8995, Recall: 0.8994, F1: 0.8994
+[2025-07-19T16:42:27.626+0000] {logging_mixin.py:188} INFO - 
+📊 Training DecisionTree...
+[2025-07-19T16:42:27.736+0000] {logging_mixin.py:188} INFO - Fitting 3 folds for each of 3 candidates, totalling 9 fits
+[2025-07-19T16:42:30.857+0000] {logging_mixin.py:188} INFO - ✅ DecisionTree — Acc: 0.8891, Prec: 0.8887, Recall: 0.8891, F1: 0.8888
+[2025-07-19T16:42:30.878+0000] {logging_mixin.py:188} INFO - 
+🏆 Best model: XGBoost (Accuracy: 0.8999)
+[2025-07-19T16:42:33.348+0000] {logging_mixin.py:188} INFO - ✅ Model XGBoost v7 registered and saved
+[2025-07-19T16:42:33.381+0000] {logging_mixin.py:188} INFO - 
+📋 FINAL BEST MODEL SUMMARY
+[2025-07-19T16:42:33.382+0000] {logging_mixin.py:188} INFO - Model Name     : XGBoost
+[2025-07-19T16:42:33.382+0000] {logging_mixin.py:188} INFO - Version        : 7
+[2025-07-19T16:42:33.382+0000] {logging_mixin.py:188} INFO - Run ID         : 879dbe4689ef47a2b623f2ad89ea1b9b
+[2025-07-19T16:42:33.383+0000] {logging_mixin.py:188} INFO - Saved at       : models/model.pkl
+[2025-07-19T16:42:33.498+0000] {logging_mixin.py:188} INFO - ✅ Retraining and logging complete
+[2025-07-19T16:42:33.507+0000] {python.py:201} INFO - Done. Returned value was: None
+[2025-07-19T16:42:33.666+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=retrain_model_dag, task_id=retrain_best_model, execution_date=20250719T163923, start_date=20250719T163931, end_date=20250719T164233
+[2025-07-19T16:42:33.856+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-07-19T16:42:34.000+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,16 @@
+[2025-07-19T06:55:53.985+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: drift_detection_dag.decide_drift_action manual__2025-07-19T06:55:42.318598+00:00 [queued]>
+[2025-07-19T06:55:54.009+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: drift_detection_dag.decide_drift_action manual__2025-07-19T06:55:42.318598+00:00 [queued]>
+[2025-07-19T06:55:54.010+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2025-07-19T06:55:54.101+0000] {taskinstance.py:2191} INFO - Executing <Task(BranchPythonOperator): decide_drift_action> on 2025-07-19 06:55:42.318598+00:00
+[2025-07-19T06:55:54.119+0000] {standard_task_runner.py:60} INFO - Started process 50 to run task
+[2025-07-19T06:55:54.126+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'drift_detection_dag', 'decide_drift_action', 'manual__2025-07-19T06:55:42.318598+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/drift_detection_dag.py', '--cfg-path', '/tmp/tmp3lnhxbwx']
+[2025-07-19T06:55:54.131+0000] {standard_task_runner.py:88} INFO - Job 16: Subtask decide_drift_action
+[2025-07-19T06:55:54.451+0000] {task_command.py:423} INFO - Running <TaskInstance: drift_detection_dag.decide_drift_action manual__2025-07-19T06:55:42.318598+00:00 [running]> on host 07dcc7630a41
+[2025-07-19T06:55:54.860+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='drift_detection_dag' AIRFLOW_CTX_TASK_ID='decide_drift_action' AIRFLOW_CTX_EXECUTION_DATE='2025-07-19T06:55:42.318598+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-19T06:55:42.318598+00:00'
+[2025-07-19T06:55:54.918+0000] {python.py:201} INFO - Done. Returned value was: trigger_retrain_dag
+[2025-07-19T06:55:54.920+0000] {branch.py:35} INFO - Branch into trigger_retrain_dag
+[2025-07-19T06:55:54.921+0000] {skipmixin.py:178} INFO - Following branch trigger_retrain_dag
+[2025-07-19T06:55:54.981+0000] {skipmixin.py:244} INFO - Skipping tasks [('end_pipeline', -1)]
+[2025-07-19T06:55:55.268+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=drift_detection_dag, task_id=decide_drift_action, execution_date=20250719T065542, start_date=20250719T065553, end_date=20250719T065555
+[2025-07-19T06:55:55.390+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-07-19T06:55:55.566+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

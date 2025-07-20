@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload CSV for Lead Conversion Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h2 class="mb-4">Upload CSV for Lead Conversion Prediction</h2>
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="file" accept=".csv" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+</body>
+</html>

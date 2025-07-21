@@ -5,11 +5,13 @@ Flask UI – Drift Detection
 
 
 <img width="900" height="449" alt="image" src="https://github.com/user-attachments/assets/dca9fbef-edd3-45b5-bd67-3d8d33e4bc1c" />
+<pre>
 Flask UI – Prediction Results
 
 
 
 Flask Outputs-AWS
+</pre>
 
 <img width="900" height="454" alt="image" src="https://github.com/user-attachments/assets/888a58af-f5ba-472d-9e53-846e50deb783" />
 Flask UI in AWS(ngrok)– Drift Detection

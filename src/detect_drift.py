@@ -72,7 +72,7 @@ def check_data_drift(reference_df, current_df, save_dir="artifacts"):
             total = result.get("number_of_columns", 1)
             drift_score = n_drifted / total
             drift_detected = drift_score > DRIFT_THRESHOLD
-            print(f"Drift Detected: {drift_detected})")
+            print(f"Drift Detected: {drift_detected}")
             return drift_detected
 
         print("Drift metric not found in the report.")

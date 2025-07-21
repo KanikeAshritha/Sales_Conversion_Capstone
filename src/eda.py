@@ -142,3 +142,51 @@ def check_placeholder_values(df, placeholder_list=['Select', 'Unknown', 'Other']
             for placeholder in placeholder_list:
                 if placeholder in values:
                     print(f"'{placeholder}' found in column: {col}")
+
+
+def exploratory_data_analysis(df):
+    print("\n--- Step 1: Detecting Column Types ---")
+    num_cols, cat_cols = get_column_types(df)
+    print(f"Numerical Columns: {num_cols}")
+    print(f"Categorical Columns: {cat_cols}")
+
+    print("\n--- Step 2: Missing Value Report ---")
+    missing_value_report(df)
+    plot_missing_heatmap(df)
+
+    print("\n--- Step 3: Univariate Analysis for Numerical Features ---")
+    univariate_numerical(df)
+    plot_numerical_distribution(df, num_cols)
+
+    print("\n--- Step 4: Univariate Analysis for Categorical Features ---")
+    univariate_categorical(df)
+    plot_categorical_distribution(df, cat_cols)
+
+    print("\n--- Step 5: Target Variable Distribution ---")
+    plot_target_distribution(df)
+
+    print("\n--- Step 6: Conversion Rate by Categorical Variables ---")
+    categorical_vs_target_rate(df, cat_cols)
+
+    print("\n--- Step 7: Numerical Statistics by Target ---")
+    numerical_vs_target_stats(df, num_cols)
+
+    print("\n--- Step 8: Visualizing Numerical Features vs Target ---")
+    plot_numerical_vs_target(df, num_cols)
+
+    print("\n--- Step 9: Correlation Analysis ---")
+    correlation_matrix(df)
+    plot_correlation_matrix(df, num_cols)
+
+    print("\n--- Step 10: Conversion Rate Plot for Categorical Variables ---")
+    plot_conversion_rate(df, cat_cols)
+
+    print("\n--- Step 11: Outlier Detection ---")
+    outliers = detect_outliers(df, num_cols)
+    print("Outliers detected (z-score > 3):")
+    for col, count in outliers.items():
+        print(f"{col}: {count} outliers")
+
+    print("\n--- Step 12: Placeholder Value Check ---")
+    check_placeholder_values(df)
+

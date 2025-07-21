@@ -1,3 +1,5 @@
+<pre>
+
 final_capstone/
 ├── airflow/                             # Airflow orchestration for drift detection & retraining
 │   ├── dags/                            # Custom DAGs to automate ML workflows
@@ -63,3 +65,6 @@ final_capstone/
 ├── latest_run_id                        # Stores run ID of the latest MLflow model
 ├── Lead Scoring.csv                     # Sample or real-world business dataset
 ├── main.py                              # Entry point to run the ML pipeline manually
+
+
+</pre>

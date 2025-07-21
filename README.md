@@ -58,6 +58,15 @@ Working Professional: 92%
 Unemployed: 44%
 Student: 37%
 
+**Numeric Feature Summary**
+
+| Feature                       | Converted Mean | Not Converted Mean | Comment                              |
+| ----------------------------- | -------------- | ------------------ | ------------------------------------ |
+| `TotalVisits`                 | 3.63           | 3.33               | Slightly more visits among converted |
+| `Total Time Spent on Website` | 738.5          | 330.4              | Strong signal                        |
+| `Page Views Per Visit`        | \~2.35 both    | -                  | No major difference                  |
+| `Asym. Profile Score`         | 16.85          | 16.04              | Useful                               |
+| `Asym. Activity Score`        | 14.6           | 14.1               | Less difference                      |
 
 
 

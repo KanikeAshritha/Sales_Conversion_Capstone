@@ -1,5 +1,67 @@
 <pre>
 
+**  EDA Insights**
+  
+**Data Overview**
+Rows: 9240
+Columns: 37
+Duplicates: 0
+Clean and unique dataset.
+
+**Missing Value Insights**
+  
+Top features with high missing values:
+| Feature                                      | % Missing |
+| -------------------------------------------- | --------- |
+| `Lead Quality`                               | 51.6%     |
+| `Asymmetrique Profile/Activity Index/Score`  | 45.6%   |
+| `Tags`, `Lead Profile`, `Current Occupation` | 29–36%    |
+| `Country`, `How did you hear about...`, etc. | 20–27%    |
+| `Page Views Per Visit`, `TotalVisits`        | 1.4%    |
+
+  
+** Strongest correlation with target Converted:**
+| Feature                         | Corr   |
+| -----------------------------   | ------ |
+| `Total Time Spent on Website`   | 0.36   |
+| `Asymmetrique Profile Score`    | 0.22   |
+| `Asymmetrique Activity Score`   | 0.17   |
+
+
+
+**Top Converting Segments**
+  
+Lead Origin
+Lead Add Form: 92% 
+API: 31%
+Landing Page Submission: 36%
+
+High-value form submissions are clearly useful.
+
+  
+Last Activity
+  
+Activities like Email Marked Spam, Approached upfront, Had a Phone Conversation have ~1.0 conversion rate ✅
+Form Submitted on Website, View in browser link Clicked: 0.0 
+
+Lead Profile
+Dual Specialization Student: 100% 
+Potential Lead: 79%
+Student of SomeSchool: very low (4%)
+
+Lead Quality
+High in Relevance: 95% 
+Worst: 2% 
+
+Current Occupation
+Working Professional: 92%
+Unemployed: 44%
+Student: 37%
+
+
+
+
+
 final_capstone/
 ├── airflow/                             # Airflow orchestration for drift detection & retraining
 │   ├── dags/                            # Custom DAGs to automate ML workflows

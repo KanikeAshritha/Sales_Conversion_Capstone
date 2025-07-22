@@ -15,7 +15,7 @@ services:
       # Uses SequentialExecutor for local execution
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       # Secret key used to encrypt sensitive data
-      AIRFLOW__CORE__FERNET_KEY: lG_GaIuKU3AROf9gQvsrVMuM1cbYt3o9wDcsQRHNikw=
+      AIRFLOW__CORE__FERNET_KEY: #useyourfernetkey
       # Connection string to the SQLite database
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
       # Adds custom Python module path
